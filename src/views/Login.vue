@@ -28,7 +28,8 @@
 </template>
 
 <script>
-// import storage from './../utils/storage'
+import utils from './../utils/utils'
+import storage from './../utils/storage'
 export default {
   name: 'login',
   data() {
@@ -59,9 +60,10 @@ export default {
     login() {
       this.$refs.userForm.validate((valid) => {
         if (valid) {
+          console.log(this.user)
           this.$api.login(this.user).then(async (res) => {
             this.$store.commit('saveUserInfo', res)
-            // await this.loadAsyncRoutes()
+            await this.loadAsyncRoutes()
             this.$router.push('/welcome')
           })
         } else {
@@ -69,21 +71,24 @@ export default {
         }
       })
     },
-    // async loadAsyncRoutes() {
-    //   let userInfo = storage.getItem('userInfo') || {}
-    //   if (userInfo.token) {
-    //     try {
-    //       const { menuList } = await this.$api.getPermissionList()
-    //       let routes = utils.generateRoute(menuList)
-    //       routes.map((route) => {
-    //         let url = `./../views/${route.component}.vue`
-    //         route.component = () => import(url)
-    //         this.router.addRoute('home', route)
-    //       })
-    //       // eslint-disable-next-line no-empty
-    //     } catch (error) {}
-    //   }
-    // },
+    async loadAsyncRoutes() {
+      let userInfo = storage.getItem('userInfo') || {}
+      console.log('ll')
+      console.log(userInfo)
+      if (userInfo.token) {
+        console.log(userInfo.token)
+        try {
+          const { menuList } = await this.$api.getPermissionList()
+          let routes = utils.generateRoute(menuList)
+          routes.map((route) => {
+            let url = `./../views/${route.component}.vue`
+            route.component = () => import(url)
+            this.router.addRoute('home', route)
+          })
+          // eslint-disable-next-line no-empty
+        } catch (error) {}
+      }
+    },
     goHome() {
       this.$router.push('/welcome')
     }
