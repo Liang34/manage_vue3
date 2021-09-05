@@ -27,8 +27,8 @@ service.interceptors.request.use((req) => {
 // 响应拦截
 service.interceptors.response.use((res) => {
   const { code, data, msg } = res.data
-  console.log(res.data)
   if (code === 200) {
+    console.log(data)
     return data
   } else if (code === 500001) {
     ElMessage.error(TOKEN_INVALID)

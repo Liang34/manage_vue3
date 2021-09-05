@@ -73,7 +73,6 @@ export default {
     },
     async loadAsyncRoutes() {
       let userInfo = storage.getItem('userInfo') || {}
-      console.log('ll')
       console.log(userInfo)
       if (userInfo.token) {
         console.log(userInfo.token)
