@@ -221,7 +221,7 @@ export default {
     // 菜单列表初始化
     async getMenuList() {
       try {
-        let list = await this.$api.getMenuList(this.queryForm)
+        let list = await this.$api.getMenuList()
         console.log(list)
         this.menuList = list
       } catch (e) {
