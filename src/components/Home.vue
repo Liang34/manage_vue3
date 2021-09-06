@@ -70,15 +70,9 @@ export default {
     return {
       isCollapse: false,
       userInfo: this.$store.state.userInfo,
-      noticeCount: 0,
+      noticeCount: this.$store.state.noticeCount,
       userMenu: [],
       activeMenu: location.hash.slice(1)
-    }
-  },
-  computed: {
-    // eslint-disable-next-line vue/no-dupe-keys
-    noticeCount() {
-      return this.$store.state.noticeCount
     }
   },
   mounted() {
