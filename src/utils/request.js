@@ -18,6 +18,7 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use((req) => {
+  console.log(req)
   const headers = req.headers
   const { token = '' } = storage.getItem('userInfo') || {}
   if (!headers.Authorization) headers.Authorization = 'Bearer ' + token
@@ -27,6 +28,7 @@ service.interceptors.request.use((req) => {
 // 响应拦截
 service.interceptors.response.use((res) => {
   const { code, data, msg } = res.data
+  console.log(data)
   if (code === 200) {
     return data
   } else if (code === 500001) {

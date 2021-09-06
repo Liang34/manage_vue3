@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/components/Home.vue'
-// import storage from '../utils/storage'
-// import utils from '../utils/utils'
-// import API from '../api'
+import storage from '../utils/storage'
+import utils from '../utils/utils'
+import API from '../api'
 
 const routes = [
   {
@@ -95,21 +95,21 @@ const router = createRouter({
   routes
 })
 // 加载动态路由
-// async function loadAsyncRoutes() {
-//   let userInfo = storage.getItem('userInfo') || {}
-//   if (userInfo.token) {
-//     const data = await API.getPermissionList()
-//     const menuList = data.menuList
-//     let routes = utils.generateRoute(menuList)
-//     routes.map((route) => {
-//       let url = `./../views/${route.component}.vue`
-//       console.log(url)
-//       route.component = () => import(url)
-//       router.addRoute('home', route)
-//     })
-//   }
-// }
-// loadAsyncRoutes()
+async function loadAsyncRoutes() {
+  let userInfo = storage.getItem('userInfo') || {}
+  if (userInfo.token) {
+    const data = await API.getPermissionList()
+    const menuList = data.menuList
+    let routes = utils.generateRoute(menuList)
+    routes.map((route) => {
+      let url = `./../views/${route.component}.vue`
+      console.log(url)
+      route.component = () => import(url)
+      router.addRoute('home', route)
+    })
+  }
+}
+loadAsyncRoutes()
 // 导航守卫
 router.beforeEach((to, from, next) => {
   if (router.hasRoute(to.name)) {

@@ -137,6 +137,7 @@
 import { getCurrentInstance, onMounted, reactive, ref, toRaw } from 'vue'
 import utils from './../utils/utils'
 import API from '../api'
+import { ElMessage } from 'element-plus'
 export default {
   name: 'user',
   setup() {
@@ -189,7 +190,7 @@ export default {
       deptId: [
         {
           required: true,
-          message: '请输入用户邮箱',
+          message: '请输入用户部门',
           trigger: 'blur'
         }
       ]
@@ -256,6 +257,7 @@ export default {
     const getUserList = async () => {
       let params = { ...user, ...pager }
       try {
+        console.log(user, pager)
         const { list, page } = await API.getUserList(params)
         userList.value = list
         pager.total = page.total
@@ -280,23 +282,29 @@ export default {
       await API.userDel({
         userIds: [row.userId] //可单个删除，也可批量删除
       })
-      ctx.$message.success('删除成功')
+      ElMessage.success({
+        message: '删除成功',
+        type: 'success'
+      })
       getUserList()
     }
     // 批量删除
     const handlePatchDel = async () => {
       if (checkedUserIds.value.length == 0) {
-        ctx.$message.error('请选择要删除的用户')
+        ElMessage.error('请选择要删除的用户')
         return
       }
-      const res = await ctx.$api.userDel({
+      const res = await API.userDel({
         userIds: checkedUserIds.value //可单个删除，也可批量删除
       })
       if (res.nModified > 0) {
-        ctx.$message.success('删除成功')
+        ElMessage.success({
+          message: '删除成功',
+          type: 'success'
+        })
         getUserList()
       } else {
-        ctx.$message.success('修改失败')
+        ElMessage.error('删除失败')
       }
     }
 
@@ -316,6 +324,7 @@ export default {
 
     const getDeptList = async () => {
       let list = await API.getDeptList()
+      console.log(list)
       deptList.value = list
     }
 

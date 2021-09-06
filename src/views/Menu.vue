@@ -222,6 +222,7 @@ export default {
     async getMenuList() {
       try {
         let list = await this.$api.getMenuList(this.queryForm)
+        console.log(list)
         this.menuList = list
       } catch (e) {
         throw new Error(e)
