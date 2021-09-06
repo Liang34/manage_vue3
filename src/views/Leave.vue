@@ -152,7 +152,7 @@
   </div>
 </template>
 <script>
-import { getCurrentInstance, onMounted, reactive, ref} from 'vue'
+import { getCurrentInstance, onMounted, reactive, ref } from 'vue'
 import utils from '../utils/utils'
 export default {
   name: 'user',

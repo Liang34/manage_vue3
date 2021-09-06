@@ -12,11 +12,11 @@ export default {
     storage.setItem('menuList', menuList)
   },
   saveActionList(state, actionList) {
-    state.actionList = actionList;
+    state.actionList = actionList
     storage.setItem('actionList', actionList)
   },
   saveNoticeCount(state, noticeCount) {
-    state.noticeCount = noticeCount;
+    state.noticeCount = noticeCount
     storage.setItem('noticeCount', noticeCount)
   }
 }
